@@ -2,7 +2,7 @@ class Controller
 
   def initialize(filename)
     @view = View.new
-    @deck = Parser.read(filename)
+    @deck = Deck.new(Parser.import(filename))
   end
 
   def run
