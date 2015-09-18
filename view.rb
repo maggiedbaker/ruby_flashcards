@@ -28,10 +28,19 @@ class View
     puts "Please try again."
   end
 
+  def display_skip
+    puts "Okay. Moving on..."
+  end
+
+  def display_give_up
+    puts "Here is the answer: "
+  end
+
   def diplay_hello
     puts "Hello, welcome to Ruby Flash Cards!"
     puts "You are able to type 'quit' to stop at anytime."
     puts "Type 'skip' to skip the current card."
+    puts "Type 'give up' to see the answer."
   end
 
   def diplay_goodbye
