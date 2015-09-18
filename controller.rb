@@ -8,7 +8,7 @@ class Controller
   def run
     input = ""
     view.display_message(:hello)
-    until input == "quit" || deck.empty?
+    until input == "quit" || deck.completed
       input = ask_next_card(deck)
     end
     view.display_message(:goodbye)

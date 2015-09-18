@@ -5,7 +5,7 @@ require_relative '../deck'
 require_relative '../card'
 
 class View
-  def set_fake_input(fake_input)
+  def fake_input=(fake_input)
     @fake_input = fake_input
   end
 
@@ -24,22 +24,18 @@ end
 
 describe "Controller" do
   let(:messages) { View.new.messages }
-  let(:deck_file) { "test_deck.txt" }
-  let(:empty_deck_file) { "empty_deck.txt" }
+  let(:deck_file) { "spec/test_deck.txt" }
+  let(:empty_deck_file) { "spec/empty_deck.txt" }
   let(:controller) { Controller.new(deck_file) }
   let(:controller_empty_deck) { Controller.new(empty_deck_file) }
 
   describe "run"
-    it 'should say hello when you start' end
-       expect{controller.run}.to output(messages[:hello]+"\n").to_stdout
-    end
-
-    it 'should quit when you pass an empty deck' end
+    it 'should quit when you pass an empty deck' do
        expect{controller_empty_deck.run}.to output(messages[:hello]+"\n"+messages[:goodbye]+"\n").to_stdout
     end
 
-    it 'should quit when you type quit' end
-       controller.view.set_fake_input = ["quit"]
+    it 'should quit when you type quit' do
+       controller.view.fake_input = ["quit"]
        expect{controller.run}.to output(/#{messages[:goodbye]+"\n"}$/).to_stdout
     end
 end
