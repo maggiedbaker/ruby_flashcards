@@ -1,1 +1,1 @@
-Controller.new.run
+Controller.new("flashcards.txt").run
