@@ -20,7 +20,7 @@ class Controller
     current_card = deck.get_card
     correct = false
     until correct || input == "quit" || input == "skip"
-      view.display_definition(card)
+      view.display_definition(current_card)
       view.display_prompt
       input = view.get_input.downcase
       if input == current_card.term.downcase
