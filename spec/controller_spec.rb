@@ -31,7 +31,7 @@ describe "Controller" do
 
   describe "run"
     it 'should quit when you pass an empty deck' do
-       expect{controller_empty_deck.run}.to output(messages[:hello]+"\n"+messages[:goodbye]+"\n").to_stdout
+       expect{controller_empty_deck.run}.to output(messages[:hello]+messages[:goodbye]+"\n").to_stdout
     end
 
     it 'should quit when you type quit' do
