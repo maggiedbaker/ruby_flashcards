@@ -11,6 +11,7 @@ class Controller
     until input == "quit" || deck.empty?
       input = ask_next_card(deck)
     end
+    view.display_message(:goodbye)
   end
 
   private
@@ -32,7 +33,7 @@ class Controller
       elsif input == "skip"
         view.display_message(:skip)
       elsif input == "quit"
-        view.display_message(:goodbye)
+        # intentionally do nothing
       else
         display_message(:wrong)
       end
