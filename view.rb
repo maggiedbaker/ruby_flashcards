@@ -23,7 +23,7 @@ Type 'give up' to see the answer.
   end
 
   def display_message(message_id)
-    puts MESSAGES.fetch(message_id) {raise "Message not found"}
+    puts MESSAGES.fetch(message_id) {raise ArgumentError, "Message not found: #{message_id}"}
     puts
   end
 
