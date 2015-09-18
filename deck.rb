@@ -8,15 +8,15 @@ class Deck
 
   def initialize(cards = [])
     @cards = cards
-    @working_deck = []
-    @completed = false
+    @working_deck = @cards.clone
+    @cards.empty? ? @completed = true : @completed = false
   end
 
   def get_card
-    @completed = false
-    if @working_deck.empty?
-      @working_deck = @cards.clone
-    end
+    # @completed = false
+    # if @working_deck.empty?
+      # @working_deck = @cards.clone
+    # end
     if @working_deck.length == 1
       @completed = true
     end
