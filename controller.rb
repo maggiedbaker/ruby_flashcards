@@ -20,12 +20,12 @@ class Controller
     input = ""
     current_card = deck.get_card
     correct = false
-    until correct || input == "quit" || input == "skip"
+    until correct || ["quit","skip","give up"].include?(input)
       view.display_definition(current_card)
       view.display_prompt
       input = view.get_input.downcase
       if input == current_card.term.downcase
-        view.display_message(:correct)
+        view.display_message(:right)
         correct = true
       elsif input == "give up"
         view.display_message(:give_up)
@@ -35,7 +35,7 @@ class Controller
       elsif input == "quit"
         # intentionally do nothing
       else
-        display_message(:wrong)
+        view.display_message(:wrong)
       end
     end
     input
