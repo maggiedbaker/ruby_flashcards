@@ -7,7 +7,7 @@ class Controller
 
   def run
     input = ""
-    view.display_hello
+    view.display_message(:hello)
     until input == "quit" || deck.empty?
       input = ask_next_card(deck)
     end
@@ -24,17 +24,17 @@ class Controller
       view.display_prompt
       input = view.get_input.downcase
       if input == current_card.term.downcase
-        view.display_correct
+        view.display_message(:correct)
         correct = true
       elsif input == "give up"
-        view.display_give_up
+        view.display_message(:give_up)
         view.display_term(current_card)
       elsif input == "skip"
-        view.display_skip
+        view.display_message(:skip)
       elsif input == "quit"
-        view.display_goodbye
+        view.display_message(:goodbye)
       else
-        display_wrong
+        display_message(:wrong)
       end
     end
     input
