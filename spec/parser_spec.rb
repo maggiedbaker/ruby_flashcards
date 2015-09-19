@@ -3,7 +3,7 @@ require_relative '../deck'
 
 describe Parser do
 
-  let(:deck) { Deck.new(Parser.import("../flashcards.txt")) }
+  let(:deck) { Deck.new(Parser.import("flashcards.txt")) }
 
   describe '#import' do
     it 'should import the entire contents of the text file as a deck of flashcards' do
