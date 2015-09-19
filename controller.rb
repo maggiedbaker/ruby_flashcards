@@ -29,6 +29,11 @@ class Controller
       if input == current_card.term.downcase
         view.display_message(:right)
         correct = true
+      elsif off_by_one(input, current_card.term.downcase)
+        view.display_message(:off_by_one)
+        view.display_term(current_card)
+        correct = true
+        view.display_message(:skip)
       elsif input == "give up"
         view.display_message(:give_up)
         view.display_term(current_card)
@@ -42,6 +47,28 @@ class Controller
       end
     end
     input
+  end
+
+  # check if a string is one character off from another string
+  def off_by_one(guess, answer)
+    string_a, string_b = [guess, answer].sort_by { |string| string.length }
+    length_diff = string_b.length - string_a.length 
+    # if length differs by one character, try removing each
+    # character of the longer string one by one to see if any
+    # versions match.
+    if length_diff == 1
+      string_b.length.times.any? do |index|
+        string_b[0...index] + string_b[(index+1)..-1] == string_a
+      end
+    # if length is the same, compare letter by letter and
+    # see if the number of differences is one or less
+    elsif length_diff == 0
+      string_a.length.times.count { |i| string_a[i] != string_b[i] } <= 1
+    # if length difference is greater than one, the strings 
+    # can't be off by one
+    else
+      false
+    end
   end
 
   attr_reader :view, :deck
