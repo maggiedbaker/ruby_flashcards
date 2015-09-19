@@ -15,7 +15,7 @@ Type 'give up' to see the answer.
   }
 
   def get_input
-    gets.chomp
+    STDIN.gets.chomp
   end
 
   def display_prompt
