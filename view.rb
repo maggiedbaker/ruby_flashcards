@@ -11,7 +11,8 @@ Type 'give up' to see the answer.
     right: "Correct! Good job!",
     wrong: "Please try again.",
     skip: "Okay. Moving on...",
-    give_up: "Here is the answer: "
+    give_up: "Here is the answer: ",
+    off_by_one: "Close enough! The answer was:"
   }
 
   def get_input
