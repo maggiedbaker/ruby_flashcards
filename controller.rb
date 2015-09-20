@@ -15,19 +15,15 @@ class Controller
     view.clear_screen
     view.display_message(:hello)
     input = view.get_input
-    view.display_message(:start)
-    if input == "2"
+    view.display_message(:start) if input != 'quit'
+    if input == "2" || input == "2."
       @multiple_choice = true
     end
     until input == "quit" || deck.completed
       input = ask_next_card(deck) 
     end
-    view.display_results(Stat.records, ["correctly", "skip","give up"])
-    view.display_incorrect(Stat.records)
-    view.display_retry
-
-
-    
+    retry_cards #examines wrong attempts    
+    view.display_results(Stat.records, ["correctly", "skip","give up", "poor syntax"]) unless Stat.records.empty? # outputs guess conditionals except wrong attempts 
     view.display_message(:goodbye)
   end
 
@@ -52,20 +48,21 @@ class Controller
       if input == current_card.term.downcase
         view.display_message(:right)
         correct = true
-        Stat.track("correctly",current_card) #records correctly guessed cards
+        Stat.track("correctly",current_card) #records correctly and card
       elsif off_by_one(input, current_card.term.downcase)
         view.display_message(:off_by_one)
         view.display_term(current_card)
         correct = true
         view.display_message(:skip)
+        Stat.track("poor syntax",current_card) #records poor syntax and card
       elsif input == "give up"
         view.display_message(:give_up)
         view.display_term(current_card)
         view.display_message(:skip)
-        Stat.track(input,current_card) #records give up cards
+        Stat.track(input,current_card) #records give up and card
       elsif input == "skip"
         view.display_message(:skip)
-        Stat.track(input,current_card) #records skipped cards 
+        Stat.track(input,current_card) #records skip and card 
       elsif input == "quit"
         # intentionally do nothing
       else
@@ -95,6 +92,21 @@ class Controller
     # can't be off by one
     else
       false
+    end
+  end
+
+  def retry_cards
+    until Stat.records.select { |k,v| k.class == Card }.empty? # runs until no wrong guesses recorded
+      view.display_results(Stat.records, ["correctly", "skip","give up", "poor syntax"]) #output previous results
+      view.display_incorrect(Stat.records) # displays incorrect, asks if try again
+      input = view.get_input 
+      return view.display_message(:recap) if input == 'no' # only 'no' exits retry
+      retry_deck = Deck.new(Stat.records.select { |k,v| k.class == Card }.keys) #create new deck of the multi guessed cards
+      Stat.records = {} #reset stats to track new activity on smaller deck
+      view.clear_screen
+      until input == "quit" || retry_deck.completed
+        input = ask_next_card(retry_deck)
+      end    
     end
   end
 
