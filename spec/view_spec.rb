@@ -18,7 +18,7 @@ describe "View" do
 
   describe "#display_message" do
     it 'should print a message of respective symbol' do
-      expect {view.display_message(:right)}.to output(messages[:right]+"\n").to_stdout
+      expect {view.display_message(:right)}.to output(messages[:right]+"\n\n").to_stdout
     end
 
     it 'should raise an error when message symbol not found' do
@@ -34,13 +34,13 @@ describe "View" do
 
   describe "#display_term" do
     it 'should print the card term' do
-      expect {view.display_term(card)}.to output("rspec\n").to_stdout
+      expect {view.display_term(card)}.to output("\"rspec\"\n\n").to_stdout
     end
   end
 
   describe "#display_definition" do
     it 'should print the card definition' do
-      expect {view.display_definition(card)}.to output("testing\n").to_stdout
+      expect {view.display_definition(card)}.to output("\"testing\"\n\n").to_stdout
     end
   end
 

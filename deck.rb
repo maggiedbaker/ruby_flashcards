@@ -23,4 +23,10 @@ class Deck
     @working_deck.shift
   end
 
+  # This method will return exactly three *incorrect* terms as an array.
+  # (To do this, it compares randomly selected terms to the correct term.)
+  def get_random_incorrect_terms(correct_term)
+    four_random_cards = @cards.shuffle[0..3]
+    three_random_incorrect_terms = four_random_cards.map {|card| card.term}.select {|term| term != correct_term}[0..2]
+  end
 end
