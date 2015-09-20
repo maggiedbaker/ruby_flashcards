@@ -41,4 +41,29 @@ Type 'give up' to see the answer.
     puts "\e[H\e[2J"
   end
 
+  def display_results(records, responses)
+    puts "Here are your results:\n"
+    responses.each do |response|
+      if !records[response].nil?
+        puts "You chose #{response} on #{records[response].size}: "
+        puts "\n#{records[response].join("\n\n")}" 
+      end
+      puts
+    end
+  end
+
+  def display_incorrect(records)
+    puts "Here are the ones with the most incorrect guesses:\n\n"
+    records.select { |k,v| k.class == Card }.sort_by { |k,v| -v.size }.each do |card|
+      puts card[0]
+      puts "You guessed #{card[1].size} times: #{card[1].join(", ")}"
+      puts
+    end
+    puts
+  end
+
+  def display_retry
+    puts "Would you like to retry this subset?"
+  end
+
 end

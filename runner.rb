@@ -1,3 +1,4 @@
+require_relative 'stat'
 require_relative 'controller'
 require_relative 'deck'
 require_relative 'card'
